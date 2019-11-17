@@ -76,4 +76,51 @@ class DoublyLinkedList:
         if new_node.get_next() is not None:
             new_node.get_next().set_prev(new_node)
 
+    # runs in O(n) time
+    def size(self) -> int:
+        current = self.head
+        count = 0
+        while current:
+            count += 1
+            current = current.get_next()
+        return count
 
+    # runs in O(n) time
+    def search(self, data: Union[int, str]) -> Node:
+        # set current to head
+        current = self.head
+        found = False
+
+        # loop until value found or last node reached
+        while current and found is False:
+            if current.get_data() == data:
+                found = True
+            else:
+                # set current to next node
+                current = current.get_next()
+        if current is None:
+            raise ValueError('Data not in list')
+
+        # return found node
+        return current
+
+    # runs in O(n) time
+    def delete(self, data: Union[int, str]):
+        # set current to head
+        current = self.head
+        found = False
+
+        # loop until value deleted or last node reached
+        while current is not None and found is False:
+            if current.get_data() == data:
+                found = True
+            else:
+                # set current to next node
+                current = current.get_next()
+        if current is None:
+            raise ValueError('Data not in list')
+        else:
+            # set current previous node to its next node
+            current.get_prev().set_next(current.get_next())
+            # set current next node to its previous node
+            current.get_next().set_prev(current.get_prev())
