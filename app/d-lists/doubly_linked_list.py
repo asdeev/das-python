@@ -26,7 +26,7 @@ class DoublyLinkedList:
     # runs in O(n) time
     def insert_tail(self, data):
         new_node = Node(data=data)
-        
+
 
     def insert_after(self, prev_node, data):
         if prev_node is None:
