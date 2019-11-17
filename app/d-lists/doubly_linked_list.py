@@ -7,7 +7,7 @@ from node import Node
 from typing import Union
 
 
-class DoublyLinkedList:
+class DoublyLinkedList(object):
 
     def __init__(self, head: Node = None, tail: Node = None):
         self.head = head
