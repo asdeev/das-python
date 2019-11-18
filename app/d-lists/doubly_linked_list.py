@@ -17,7 +17,7 @@ class DoublyLinkedList(object):
         self.tail = tail
 
     def insert_head(self, data: Union[int, str]):
-        """Insert node at the beginning of list
+        """Insert Node at the beginning of list
 
         This function will allocate a new Node, change
         the pointer of its next Node to be the current head,
@@ -29,7 +29,7 @@ class DoublyLinkedList(object):
                 insert into the node.
 
         """
-        
+
         # allocate new_node and put in data
         new_node = Node(data=data)
 
@@ -39,16 +39,20 @@ class DoublyLinkedList(object):
 
         # change prev of head node to new_node
         if self.head is not None:
+            if self.tail is None:
+                self.tail = self.head
             self.head.set_prev(new_node)
 
         # move head to point to new_node
         self.head = new_node
 
     def insert_tail(self, data: Union[int, str]):
-        """Insert node at the end of list
+        """Insert Node at the end of list
 
-        This function will allocate a new node, traverse the list,
-        and add it to the end of the list. Runs in O(n) time.
+        This function will allocate a new Node, change
+        the pointer of its prev Node to be the current tail,
+        and set the new Node to be the new tail.
+        Runs in O(1) time.
 
         :param
             data: Union[int, str]: The integer or string value to
@@ -58,94 +62,107 @@ class DoublyLinkedList(object):
 
         # allocate new_node and put in data
         new_node = Node(data=data)
-        last = self.head
 
-        # new_node will be last node so set its next as None
-        new_node.set_next(None)
+        # make prev of new_node as tail and next as None
+        new_node.set_prev(new_prev=self.tail)
+        new_node.set_next(new_next=None)
 
-        # make new_node as head if list is empty
-        if self.head is None:
-            new_node.set_prev(None)
-            self.head = new_node
-            return
+        # change next of tail node to new_node
+        if self.tail is not None:
+            if self.head is None:
+                self.head = self.tail
+            self.tail.set_next(new_node)
 
-        # traverse till last node
-        while last.get_next() is not None:
-            last = last.get_next()
+        # move tail to point to new_node
+        self.tail = new_node
 
-        # change next of last node
-        last.set_next(new_node)
+    def search(self, data: Union[int, str]) -> Node:
+        """Find a Node with specified data.
 
-        # make last node as prev of new_node
-        new_node.set_prev(last)
+        This function will search the list to find and
+        return the first Node with the specified data.
+        Runs in O(n) time.
 
-    # runs in O(n) time
-    def insert_after(self, prev_node: Node, data: Union[int, str]):
-        # check if given prev_node is None
-        if prev_node is None:
-            raise ValueError('Node not in list')
+        :param
+            data: Union[int, str]: The integer or string value to insert
+                into a Node.
+        :return
+            current: Node: The found Node.
 
-        # allocate new_node and put in data
-        new_node = Node(data=data)
+        """
 
-        # make next of new_node as next of prev_node
-        new_node.set_next(prev_node.get_next())
+        # set current to head
+        current = self.head
+        found = False
 
-        # make prev of new_node as prev_node
-        new_node.set_prev(prev_node)
+        # loop until value found or last Node reached
+        while current and found is False:
+            if current.get_data() == data:
+                found = True
+            else:
+                # set current to next Node
+                current = current.get_next()
+        if current is None:
+            raise ValueError('Data not in list')
 
-        # make next of prev_node as new_node
-        prev_node.set_next(new_node)
+        # return found Node
+        return current
 
-        # make prev of next of new_node as new_node
-        if new_node.get_next() is not None:
-            new_node.get_next().set_prev(new_node)
+    def delete(self, data: Union[int, str]) -> Node:
+        """Delete a Node with specified data.
 
-    # runs in O(n) time
+        This function will search the list to find and
+        delete the first Node with the specified data.
+        Runs in O(n) time.
+
+        :param
+            data: Union[int, str]: The integer or string value to insert
+                into a Node.
+        :return
+            current: Node: The deleted Node.
+
+        """
+
+        # set current to head
+        current = self.head
+        previous = None
+        found = False
+
+        # loop until value deleted or last Node reached
+        while current and found is False:
+            if current.get_data() == data:
+                found = True
+            else:
+                # set previous to current
+                previous = current
+                # set current to next Node
+                current = current.get_next()
+        if current is None:
+            raise ValueError('Data not in list')
+        if previous is None:
+            # deleted Node is head Node
+            self.head = current.get_next()
+        else:
+            # set previous Node to next Node of current to delete
+            previous.set_next(new_next=current.get_next())
+
+        # return deleted Node
+        return current
+
     def size(self) -> int:
+        """Returns the count of total Nodes in list."""
         current = self.head
         count = 0
+
         while current:
             count += 1
             current = current.get_next()
         return count
 
-    # runs in O(n) time
-    def search(self, data: Union[int, str]) -> Node:
-        # set current to head
+    def print(self):
+        """Prints out the list from beginning"""
         current = self.head
-        found = False
 
-        # loop until value found or last node reached
-        while current and found is False:
-            if current.get_data() == data:
-                found = True
-            else:
-                # set current to next node
-                current = current.get_next()
-        if current is None:
-            raise ValueError('Data not in list')
-
-        # return found node
-        return current
-
-    # runs in O(n) time
-    def delete(self, data: Union[int, str]):
-        # set current to head
-        current = self.head
-        found = False
-
-        # loop until value deleted or last node reached
-        while current is not None and found is False:
-            if current.get_data() == data:
-                found = True
-            else:
-                # set current to next node
-                current = current.get_next()
-        if current is None:
-            raise ValueError('Data not in list')
-        else:
-            # set current previous node to its next node
-            current.get_prev().set_next(current.get_next())
-            # set current next node to its previous node
-            current.get_next().set_prev(current.get_prev())
+        while current:
+            print(current.get_data())
+            current = current.get_next()

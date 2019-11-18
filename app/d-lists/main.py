@@ -12,8 +12,16 @@ from doubly_linked_list import DoublyLinkedList
 
 def main():
     """Provides access to the module as standalone project."""
-    pass
+    sll = SinglyLinkedList()
+    dll = DoublyLinkedList()
+
+    dll.insert_head(10)
+    dll.insert_head(11)
+    dll.insert_tail(5)
+    dll.insert_head(15)
+    dll.insert_tail(200)
+    dll.print()
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     main()

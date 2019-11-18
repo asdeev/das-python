@@ -113,7 +113,16 @@ class SinglyLinkedList(object):
         """Returns the count of total Nodes in list."""
         current = self.head
         count = 0
+
         while current:
             count += 1
             current = current.get_next()
         return count
+
+    def print(self):
+        """Prints out the list from beginning"""
+        current = self.head
+
+        while current:
+            print(current.get_data())
+            current = current.get_next()
