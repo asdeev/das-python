@@ -1,6 +1,8 @@
 """
     Description: An implementation of the Doubly Linked List.
-    Name: doubly_linked_list.py
+
+    Title: doubly_linked_list.py
+
     Author: Zaid Bhura
 """
 from node import Node
@@ -10,11 +12,24 @@ from typing import Union
 class DoublyLinkedList(object):
 
     def __init__(self, head: Node = None, tail: Node = None):
+        """Initialize DoublyLinkedList object."""
         self.head = head
         self.tail = tail
 
-    # runs in O(1) time
     def insert_head(self, data: Union[int, str]):
+        """Insert node at the beginning of list
+
+        This function will allocate a new Node, change
+        the pointer of its next Node to be the current head,
+        and set the new Node to be the new head.
+        Runs in O(1) time.
+
+        :param
+            data: Union[int, str]: The integer or string value to
+                insert into the node.
+
+        """
+        
         # allocate new_node and put in data
         new_node = Node(data=data)
 
@@ -29,8 +44,18 @@ class DoublyLinkedList(object):
         # move head to point to new_node
         self.head = new_node
 
-    # runs in O(n) time
     def insert_tail(self, data: Union[int, str]):
+        """Insert node at the end of list
+
+        This function will allocate a new node, traverse the list,
+        and add it to the end of the list. Runs in O(n) time.
+
+        :param
+            data: Union[int, str]: The integer or string value to
+                insert into the node.
+
+        """
+
         # allocate new_node and put in data
         new_node = Node(data=data)
         last = self.head
