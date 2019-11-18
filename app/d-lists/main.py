@@ -20,6 +20,7 @@ def main():
     dll.insert_tail(5)
     dll.insert_head(15)
     dll.insert_tail(200)
+    dll.insert(200, 4)
     dll.print()
 
 

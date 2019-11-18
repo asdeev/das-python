@@ -76,6 +76,47 @@ class DoublyLinkedList(object):
         # move tail to point to new_node
         self.tail = new_node
 
+    def insert(self, node_data: Union[int, str], data: Union[int, str]):
+        """Insert Node after or before a specified Node.
+
+        This function will allocate a new Node, see whether it is faster
+        to insert from head or tail, and insert the new Node at the specified
+        location.
+        Runs in O(n/2) -> O(n) time.
+
+        :param
+            node_data: Union[int, str]: The integer or string value to
+                insert after or before.
+            data: Union[int, str]: The integer or string value to
+                insert into the node.
+
+        """
+
+        # allocate new_node and put in data
+        new_node = Node(data=data)
+        current_head = self.head
+        current_tail = self.tail
+
+        while current_head.get_next() and current_tail.get_prev():
+            if current_head.get_data() == node_data:
+                new_node.set_prev(current_head)
+                new_node.set_next(current_head.get_next())
+
+                current_head.get_next().set_prev(new_node)
+                current_head.set_next(new_node)
+                return
+            elif current_tail.get_data() == node_data:
+                new_node.set_next(current_tail)
+                new_node.set_prev(current_tail.get_prev())
+
+                current_tail.get_prev().set_next(new_node)
+                current_tail.set_prev(new_node)
+                return
+            current_head = current_head.get_next()
+            current_tail = current_tail.get_prev()
+
+        raise ValueError('Data to insert after not in list')
+
     def search(self, data: Union[int, str]) -> Node:
         """Find a Node with specified data.
 
