@@ -28,7 +28,6 @@ class SinglyLinkedList(object):
                 into a Node.
 
         """
-
         # allocate new_node and put in data
         new_node = Node(data=data)
         # make next of new_node as current head
@@ -44,13 +43,11 @@ class SinglyLinkedList(object):
         Runs in O(n) time.
 
         :param
-            data: Union[int, str]: The integer or string value to insert
-                into a Node.
+            data: Union[int, str]: The integer or string value search for.
         :return
             current: Node: The found Node.
 
         """
-
         # set current to head
         current = self.head
         found = False
@@ -82,7 +79,6 @@ class SinglyLinkedList(object):
             current: Node: The deleted Node.
 
         """
-
         # set current to head
         current = self.head
         previous = None

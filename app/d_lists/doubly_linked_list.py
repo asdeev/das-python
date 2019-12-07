@@ -91,7 +91,6 @@ class DoublyLinkedList(object):
                 insert into the node.
 
         """
-
         # allocate new_node and put in data
         new_node = Node(data=data)
         current_head = self.head
@@ -131,7 +130,6 @@ class DoublyLinkedList(object):
             current: Node: The found Node.
 
         """
-
         # set current to head
         current = self.head
         found = False
@@ -163,7 +161,6 @@ class DoublyLinkedList(object):
             current: Node: The deleted Node.
 
         """
-
         # set current to head
         current = self.head
         previous = None
